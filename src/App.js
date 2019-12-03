@@ -1,26 +1,108 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import { Route, Link, NavLink } from 'react-router-dom';
+import SideBarMain from './SideBarMain/SideBarMain';
+import SideBarNotes from './SideBarNotes/SideBarNotes';
+import data from './dumy-store';
+import NoteList from './NoteList/NoteList';
 import './App.css';
 
-function App() {
+class App extends Component{
+  constructor(props) {
+    super(props);
+    this.state = { 
+      data: {data}
+    }
+  };
+
+  handleAddNote = () => {
+
+  }
+
+  handleAddFolder = () => {
+
+  }
+
+  handleDeleteNote = () => {
+
+  }
+
+  render() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1><Link to='/'>Noteful App</Link></h1>
       </header>
+      <div>
+
+        <Route 
+          path="/" 
+          exact 
+          render={ () => 
+            <SideBarMain folders={this.state.data.data.folders} addFolder={this.handleAddFolder} />}
+        />
+        <Route 
+          path="/" 
+          exact 
+          render={ () => 
+            <NoteList notes={this.state.data.data.notes} deleteNote={this.handleDeleteNote} />}
+        />
+
+        <Route
+          path={"/folder/:folderId"}
+          exact
+          render={routeProps => (
+              <NoteList
+                  folders={this.state.data.data.folders}
+                  notes={this.state.data.data.notes}
+                  {...routeProps}
+              />
+          )}
+        />
+
+        <Route
+          path={"/folder/:folderId"}
+          exact
+          render={routeProps => (
+              <SideBarNotes
+                  folders={this.state.data.data.folders}
+                  notes={this.state.data.data.notes}
+                  {...routeProps}
+              />
+          )}
+        />
+
+        <Route
+          path={"/folder/:folderId"}
+          exact
+          render={routeProps => (
+              <NoteList
+                  folders={this.state.data.data.folders}
+                  notes={this.state.data.data.notes}
+                  {...routeProps}
+              />
+          )}
+        />
+
+        <Route
+          path={"/folder/:folderId"}
+          exact
+          render={routeProps => (
+              <SideBarNotes
+                  folders={this.state.data.data.folders}
+                  notes={this.state.data.data.notes}
+                  {...routeProps}
+              />
+          )}
+        />
+
+
+        <Route path="/add-folder" component={<SideBarMain />} />
+        <Route path="/add-note" component={<SideBarMain />} />
+        
+      </div>
     </div>
   );
+  }
 }
 
 export default App;

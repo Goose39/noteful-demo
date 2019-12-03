@@ -1,0 +1,10 @@
+.sidebar-list {
+  list-style-type: none;
+  width: 200px;
+  text-align: left;
+}
+
+.sidebar-container {
+  display: inline-block;
+  vertical-align: top;
+}

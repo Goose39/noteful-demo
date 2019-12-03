@@ -1,0 +1,22 @@
+.note-list {
+  list-style-type: none;
+  width: 500px;
+  text-align: left;
+}
+
+.note-list-container {
+  display: inline-block;
+}
+
+.note-list-item {
+  border: 1px solid black;
+  margin: 10px;
+  height: 150px;
+}
+
+.delete {
+  width: 120px;
+  height: 40px;
+  position: relative;
+  left: 320px;
+}
