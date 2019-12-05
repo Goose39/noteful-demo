@@ -16,3 +16,11 @@
 .App-link {
   color: #09d3ac;
 }
+
+.sidebar-container {
+  display: inline-block;
+}
+
+.main-container {
+  display: inline-block;
+}

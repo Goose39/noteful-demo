@@ -1,12 +1,13 @@
 import React from 'react';
+import './AddFolderForm.css';
 
-export default function AddFolderForm(props) {
+export default function AddFolderForm() {
   return (
-    <div>
+    <div className="form_container">
       <h2>Create Folder</h2>
-      <form>
-        <label>
-          <input>Name</input>
+      <form className="add_folder_form">
+        <label>Name
+        <input type="text" />
         </label>
         <button type="submit">Add Folder</button>
       </form>

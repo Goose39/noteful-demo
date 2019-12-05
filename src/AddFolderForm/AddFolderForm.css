@@ -1,0 +1,10 @@
+.add_folder_form {
+  border: black 1px solid;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+.form_container {
+
+}

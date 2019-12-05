@@ -1,27 +1,35 @@
 import React from 'react';
-import NoteListItem from '../NoteListItem/NoteListItem'
+import NoteListItem from '../NoteListItem/NoteListItem';
+import ApiContext from '../ApiContext';
+import { Link } from 'react-router-dom';
 
-class NoteList extends React.Component {
+export default class NoteList extends React.Component {
+  static contextType = ApiContext
+
   render() {
-    const notes = this.props.notes.map(note => {
-      return <li className="note-list-item">
-              <NoteListItem name={note.name} key={note.id} date={note.modified} id={note.id} />
-             </li>
-    })
+    const folderId = this.props.match.params
+    const notes = this.context.notes
+    //(!FolderId) ? notes : notes.filter(note => note.folderId === folderId )
+    console.log("NoteList")
+    console.log(folderId)
 
     return (
-      <section className="note-list-container">
-        <ul className="note-list">
-          {notes}
+      <section className='note-list-container'>
+        <ul className='note-list'>
+          { notes.map(note =>
+                    <li key={note.id}>
+                      <NoteListItem
+                        id={note.id}
+                        name={note.name}
+                        date={note.modified}
+                        deleteNote={this.context.deleteNote}
+                      />
+                    </li> 
+                    )
+          }
         </ul>
-        <button>Add Note</button>
+        <Link to="/add-note">Add Note</Link>
       </section>
     )
   }
 }
-
-NoteList.defaultProps = {
-  notes: [],
-}
-
-export default NoteList;

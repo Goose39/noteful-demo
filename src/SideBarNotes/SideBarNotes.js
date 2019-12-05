@@ -1,20 +1,23 @@
 import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
+import ApiContext from '../ApiContext';
 
 import '../SideBarMain/SideBarMain.css'
 
 
-export default function SideBarNotes(props) {
+export default class SideBarNotes extends React.Component {
+  static contextType = ApiContext;
+
+  render() {
+    const { folders } = this.context;
+    const folderId = this.props.match.params.folderId
+    const folderWithId = folders.find(folder => folder.id === folderId)
+
   return (
     <div className='NoteListNav'>
-      <button type="button" onClick={() => props.history.goBack()} >{"<<< Go Back"}</button>
-      <h3>{props.folder.name}</h3>
+      <button type="button" onClick={() => this.props.history.goBack()} >{"<<< Go Back"}</button>
+      <h2>{ (folderWithId) ? folderWithId.name : ""}</h2>
     </div>
   )
 }
-
-SideBarNotes.defaultProps = {
-  history: {
-    goBack: () => {}
-  }
 }

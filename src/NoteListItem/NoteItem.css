@@ -12,11 +12,14 @@
   border: 1px solid black;
   margin: 10px;
   height: 150px;
+  box-shadow: black 0 2px 2px ;
 }
 
 .delete {
+  color: white;
   width: 120px;
   height: 40px;
   position: relative;
-  left: 320px;
+  left: 300px;
+  background-color: rgb(179, 0, 0);
 }

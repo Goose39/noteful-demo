@@ -4,6 +4,10 @@
   text-align: left;
 }
 
+.sidebar-item {
+  padding: 10px;
+}
+
 .sidebar-container {
   display: inline-block;
   vertical-align: top;

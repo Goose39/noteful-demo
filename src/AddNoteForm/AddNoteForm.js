@@ -1,31 +1,36 @@
 import React from 'react';
+import './AddNoteForm.css'
+import ApiContext from '../ApiContext';
 
-export default function AddNoteForm(props) {
-  const options = props.folders.map(folder => 
-    <option>{folder}</option>
+export default class AddNoteForm extends React.Component {
+  
+  static contextType = ApiContext;
+
+  render() {
+  const options = this.context.folders.map(folder => 
+    <option>{folder.name}</option>
     )
+    console.log(this.context.folders)
   return (
     <div>
       <h2>Create Note</h2>
-      <form>
-        <label>
-          <input>Name</input>
+      <form className="add_note_form">
+        <label>Name
+          <input type="text" />
         </label>
-        <label>
-          <input>Content</input>
+        <label>Content
+          <textarea name="desc">
+            Enter Note text here
+          </textarea>
         </label>
-        <label>
-          <input type="select">
+        <label>Folder
+          <select>
             {options}
-          </input>
+          </select>
         </label>
         <button type="submit">Add Folder</button>
       </form>
     </div>
   )
+  }
 }
-
-AddNoteForm.defaultProps = {
-  folders: [test1, test2, test3],
-}
-
