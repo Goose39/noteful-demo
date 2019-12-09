@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, withRouter } from 'react-router-dom';
 import SideBarMain from './SideBarMain/SideBarMain';
 import SideBarNotes from './SideBarNotes/SideBarNotes';
 import AddFolderForm from './AddFolderForm/AddFolderForm';
@@ -57,6 +57,7 @@ class App extends Component{
     this.setState({
       notes: this.state.notes.filter(note => note.id !== noteId)
     });
+    this.props.history.goBack();
 };
 
 renderNavRoutes() {
@@ -114,4 +115,4 @@ renderMainRoutes() {
   }
 }
 
-export default App;
+export default withRouter(App);

@@ -7,16 +7,14 @@ export default class NoteList extends React.Component {
   static contextType = ApiContext
 
   render() {
-    const folderId = this.props.match.params
-    const notes = this.context.notes
-    //(!FolderId) ? notes : notes.filter(note => note.folderId === folderId )
-    console.log("NoteList")
-    console.log(folderId)
+    const folderId = (this.props.match.params)? this.props.match.params.folderId : null
+    const notes = (folderId)? this.context.notes.filter(note => note.folderId === this.props.match.params.folderId) :this.context.notes
+    console.log(`NoteList:fodlerId = ${folderId}`)
 
     return (
       <section className='note-list-container'>
         <ul className='note-list'>
-          { notes.map(note =>
+          { notes.map(note =>  
                     <li key={note.id}>
                       <NoteListItem
                         id={note.id}
