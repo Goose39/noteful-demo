@@ -12,9 +12,10 @@ export default class SideBarMain extends React.Component {
       <div>
         <ul className='sidebar-list'>
           {folders.map(folder =>
-            <li key={folder.id}>
+            <li className='sidebar-item'>
               <NavLink
-                className='sidebar-item'
+                className='sidebar-link'
+                key={folder.id}
                 to={`/folder/${folder.id}`}
                 onClick={() => this.context.selectedFolder}
               >
@@ -23,7 +24,7 @@ export default class SideBarMain extends React.Component {
             </li>
           )}
         </ul>
-        <Link to='/add-folder' type='button' className='button'>Add Folder</Link>
+        <Link className="link-btn" to='/add-folder'>Add Folder</Link>
       </div>
     )
   }

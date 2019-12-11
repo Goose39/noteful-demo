@@ -1,7 +1,8 @@
 .note-list {
   list-style-type: none;
-  width: 500px;
+  width: 485px;
   text-align: left;
+  padding-left: 5px;
 }
 
 .note-list-container {
@@ -13,6 +14,8 @@
   margin: 10px;
   height: 150px;
   box-shadow: black 0 2px 2px ;
+  background-color: white;
+  padding: 10px;
 }
 
 .delete {
@@ -22,4 +25,6 @@
   position: relative;
   left: 300px;
   background-color: rgb(179, 0, 0);
+  cursor: pointer;
+  border-radius: 10px;
 }

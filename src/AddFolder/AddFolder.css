@@ -5,6 +5,7 @@
   width: 300px;
 }
 
-.form_container {
-
+.add_folder_form button {
+  width: 120px;
+  margin: 10px auto
 }

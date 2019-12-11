@@ -1,14 +1,38 @@
 .sidebar-list {
   list-style-type: none;
-  width: 200px;
   text-align: left;
+  padding: 0 0 0 10px;
+  background-color: #282C34;
+  margin: 0 0 10px 0;
 }
 
 .sidebar-item {
-  padding: 10px;
+  padding: 10px ; 
+  background-color: #282C34;
 }
 
 .sidebar-container {
   display: inline-block;
   vertical-align: top;
+}
+
+.link-btn {
+  background-color: rgb(113, 108, 108);
+  color: white;
+  text-decoration: none;
+  padding: 5px 10px 5px 10px;
+  border-radius: 5px;
+}
+
+h2 {
+  color: #09d3ac;
+}
+
+.sidebar-link.active {
+  font-weight: 400;
+  color: rgb(113, 108, 108);
+}
+
+.sidebar-link {
+  padding: 10px 25px;
 }

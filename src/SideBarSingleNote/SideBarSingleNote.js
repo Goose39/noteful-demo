@@ -1,16 +1,19 @@
 import React from 'react';
 import ApiContext from '../ApiContext';
 import '../SideBarMain/SideBarMain.css';
-import './SideBarNotes.css'
+import '../SideBarNotes/SideBarNotes.css'
 
 
-export default class SideBarNotes extends React.Component {
+export default class SideBarSingleNote extends React.Component {
   static contextType = ApiContext;
 
   render() {
+    const { notes } = this.context;
     const { folders } = this.context;
-    const folderId = this.props.match.params.folderId
-    const folderWithId = folders.find(folder => folder.id === folderId)
+    const NoteId = this.props.match.params.noteId
+    const folderIdFromNote = notes.find(note => note.id === NoteId)
+    
+    const folderWithId = folders.find(folder => folder.id === folderIdFromNote.folderId)
 
   return (
     <div className='NoteListNav'>

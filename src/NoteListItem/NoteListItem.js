@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ApiContext from '../ApiContext';
-import { format } from 'date-fns';
 import './NoteItem.css';
+import PropTypes from 'prop-types';
 
 
 export default class NoteListItem extends React.Component {
   static contextType = ApiContext
 
-  deleteBookmarkRequest = (noteId) =>  {
+  deleteNoteRequest = (noteId) =>  {
     fetch(`http://localhost:9090/notes/${noteId}`, {
     method: 'DELETE',
     headers: {
@@ -37,24 +37,31 @@ export default class NoteListItem extends React.Component {
 
   render() {
   return (
-    <div className="note-list-item">
-        <h2>
-          <Link to={`/note/${this.props.id}`}>
-            {this.props.name}
-          </Link>
-        </h2>
-        <div className='note-date'>
-          Last Modified: 
-          {' '}
-          <span className='date'>
-            {this.props.date.slice(0, 10)}
-            {/* {format(props.date, "Do MMM YYYY")} */}
-            
-
-          </span>
-        </div>
-        <button className='delete' type='button' onClick={e => this.deleteBookmarkRequest(this.props.id)} >Delete Note</button>
-    </div>
+    <li className="note-list-item">
+      <h2>
+        <Link to={`/note/${this.props.id}`}>
+          {this.props.name}
+        </Link>
+      </h2>
+      <div className='note-date'>
+        Last Modified: 
+        {' '}
+        <span className='date'>
+          { this.props.date.slice(0, 10) }          
+        </span>
+      </div>
+      <button className='delete' type='button' onClick={e => this.deleteNoteRequest(this.props.id)} >Delete Note</button>
+    </li>
   )
 }
 }
+
+NoteListItem.propTypes = {
+  name: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  date: PropTypes.string,
+};
+
+NoteListItem.defaultProps = {
+date: new Date(),
+};

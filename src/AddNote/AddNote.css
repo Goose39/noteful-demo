@@ -1,0 +1,31 @@
+.add_note_form {
+  border: black 1px solid;
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+}
+
+.form_container {
+  text-align: left;
+}
+
+.add_note_form label {
+  display: block;
+}
+
+.input_field {
+  text-align: left;
+  margin-left: 20px;
+  width: 250px;
+}
+
+.add_note_form input, .add_note_form select, .add_note_form textarea {
+  width: 300px;
+}
+
+.add_note_form button{
+  width: 100px;
+  text-align: center;
+  margin: auto;
+  margin: 10px auto;
+}

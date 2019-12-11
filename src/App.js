@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import { Route, Link, withRouter } from 'react-router-dom';
+import { Route, Link, withRouter, Switch } from 'react-router-dom';
 import SideBarMain from './SideBarMain/SideBarMain';
 import SideBarNotes from './SideBarNotes/SideBarNotes';
-import AddFolderForm from './AddFolderForm/AddFolderForm';
-import AddNoteForm from './AddNoteForm/AddNoteForm';
+import AddFolder from './AddFolder/AddFolder';
+import AddNote from './AddNote/AddNote';
 import config from './config';
 import ApiContext from './ApiContext';
-import NoteListItem from './NoteListItem/NoteListItem';
 import NoteList from './NoteList/NoteList';
-import SingleNote from './SingleNote/SingleNote'
+import SingleNote from './SingleNote/SingleNote';
+import SideBarSingleNote from './SideBarSingleNote/SideBarSingleNote';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary'
 import './App.css';
 
 
@@ -16,8 +17,6 @@ class App extends Component{
   state = {
     notes: [],
     folders: [], 
-    selectedNoteId: "", 
-    selectedFolderId: "",
   };
 
   componentDidMount() {
@@ -41,51 +40,53 @@ class App extends Component{
         });
 }
 
-  handleAddNote = ( {noteProps} ) => {
+  handleAddNote = (note) => {
     this.setState({
-      notes: [...this.state.folders, noteProps]
+      notes: [...this.state.notes, note]
     });
+    this.props.history.push("/");
   }
 
   handleAddFolder = (folderName) => {
     this.setState({
-      notes: [...this.state.notes, folderName]
+      folders: [...this.state.folders, folderName]
     });
+    this.props.history.push("/");
   }
 
   handleDeleteNote = (noteId) => {
     this.setState({
       notes: this.state.notes.filter(note => note.id !== noteId)
     });
-    this.props.history.goBack();
+    this.props.history.push("/");
 };
 
 renderNavRoutes() {
   return (
-    <>
+    <Switch>
       <Route exact path="/" component={SideBarMain} />
-      <Route path="/folder/:folderId" component={SideBarNotes} />
-      <Route path="/note/:noteId" component={SideBarNotes} />
-      <Route path="/add-folder" component={SideBarMain} />
-      <Route path="/add-note" component={SideBarMain} />
-    </>
+      <Route path="/folder/:folderId" component={SideBarMain} />
+      <Route path="/add-folder" component={SideBarNotes} />
+      <Route path="/add-note" component={SideBarNotes} />
+      <ErrorBoundary>
+        <Route path="/note/:noteId" component={SideBarSingleNote} />
+      </ErrorBoundary>
+    </Switch>
   );
 }
 
 renderMainRoutes() {
   return (
-    <>
-      {['/', '/folder/:folderId'].map(path => (
-        <Route
-          exact
-          path={path}
-          component={NoteList}
-        />
-      ))}
-      <Route path="/note/:noteId" component={SingleNote} />
-      <Route path="/add-folder" component={AddFolderForm} />
-      <Route path="/add-note" component={AddNoteForm} />
-    </>
+    <Switch>
+      <Route exact path="/" component={NoteList} />
+      <Route path="/folder/:folderId" component={NoteList} />
+      <Route path="/add-folder" component={AddFolder} />
+      <Route path="/add-note" component={AddNote} />
+      <ErrorBoundary>
+       <Route exact path="/note/:noteId" component={SingleNote} />
+      </ErrorBoundary>
+      <Route component={NoteList} />
+    </Switch>
   );
 }
 
@@ -107,8 +108,8 @@ renderMainRoutes() {
             <Link to="/">Noteful App</Link>
           </h1>
         </header>
-        <nav className="sidebar-container">{this.renderNavRoutes()}</nav>
-        <main className="main-container">{this.renderMainRoutes()}</main>
+          <nav className="sidebar-container">{this.renderNavRoutes()}</nav>
+          <main className="main-container">{this.renderMainRoutes()}</main>
       </div>
     </ApiContext.Provider>
   );
