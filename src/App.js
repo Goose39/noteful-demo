@@ -41,24 +41,24 @@ class App extends Component{
 }
 
   handleAddNote = (note) => {
+    this.props.history.push("/");
     this.setState({
       notes: [...this.state.notes, note]
     });
-    this.props.history.push("/");
   }
 
   handleAddFolder = (folderName) => {
+    this.props.history.push("/");
     this.setState({
       folders: [...this.state.folders, folderName]
     });
-    this.props.history.push("/");
   }
 
   handleDeleteNote = (noteId) => {
+    this.props.history.push("/");
     this.setState({
       notes: this.state.notes.filter(note => note.id !== noteId)
     });
-    this.props.history.push("/");
 };
 
 renderNavRoutes() {
