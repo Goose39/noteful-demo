@@ -11,14 +11,13 @@ export default class SideBarSingleNote extends React.Component {
     const { notes } = this.context;
     const { folders } = this.context;
     const NoteId = this.props.match.params.noteId
-    const folderIdFromNote = notes.find(note => note.id === NoteId)
-    
-    const folderWithId = folders.find(folder => folder.id === folderIdFromNote.folderId)
+    const folderIdFromNote = notes.find(note => note.id.toString() === NoteId)
+    const folderWithId = folders.find(folder => folder.id === folderIdFromNote.folderid)
 
   return (
     <div className='NoteListNav'>
       <button  className="link-btn" type="button" onClick={() => this.props.history.goBack()} >{"<<< Go Back"}</button>
-      <h2>{ (folderWithId) ? folderWithId.name : ""}</h2>
+      <h2>{ (folderWithId) ? folderWithId.folder_name : ""}</h2>
     </div>
   )
 }

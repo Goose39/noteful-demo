@@ -19,7 +19,7 @@ export default class SideBarMain extends React.Component {
                 to={`/folder/${folder.id}`}
                 onClick={() => this.context.selectedFolder}
               >
-                {folder.name}
+                {folder.folder_name}
               </NavLink>
             </li>
           )}

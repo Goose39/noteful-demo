@@ -15,7 +15,7 @@ export default class SideBarNotes extends React.Component {
   return (
     <div className='NoteListNav'>
       <button  className="link-btn" type="button" onClick={() => this.props.history.goBack()} >{"<<< Go Back"}</button>
-      <h2>{ (folderWithId) ? folderWithId.name : ""}</h2>
+      <h2>{ (folderWithId) ? folderWithId.folder_name : ""}</h2>
     </div>
   )
 }

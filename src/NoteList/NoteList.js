@@ -8,8 +8,9 @@ export default class NoteList extends React.Component {
   static contextType = ApiContext
 
   render() {
-    const folderId = (this.props.match.params)? this.props.match.params.folderId : null
-    const notes = (folderId)? this.context.notes.filter(note => note.folderId === this.props.match.params.folderId) : this.context.notes
+    const folderId = (this.props.match.params)? this.props.match.params.folderId : null;
+    const notes = (folderId)? this.context.notes.filter(note => note.folderid.toString() === folderId) : this.context.notes;
+    console.log(notes)
     return (
       <section className='note-list-container'>
         <ul className='note-list'>
@@ -17,8 +18,8 @@ export default class NoteList extends React.Component {
                         <NoteListItem
                           key={note.id}
                           id={note.id}
-                          name={note.name}
-                          date={note.modified}
+                          name={note.note_name}
+                          modified={note.modified}
                           deleteNote={this.context.deleteNote}
                         />
                         ) }

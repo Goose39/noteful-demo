@@ -1,25 +1,31 @@
 import React from 'react';
 import './AddNote.css'
 import ApiContext from '../ApiContext';
+import config from '../config';
+
+const uuidv4 = require('uuid/v4');
 
 export default class AddNoteForm extends React.Component {
   static contextType = ApiContext;
 
   addNoteRequest = (e) =>  {
     e.preventDefault()
-    const randomId = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    // const randomId = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    const randomId = uuidv4();
+
     const newNote = {
-      name: e.target['name'].value,
+      note_name: e.target['name'].value,
       id: randomId,
       content: e.target['desc'].value,
-      folderId: e.target['folder'].value,
-      modified: new Date().toISOString(),
+      folderid: e.target['folder'].value,
+      modified: new Date().toISOString()
     }
 
-    fetch(`http://localhost:9090/notes/`, {
+    fetch(`${config.API_ENDPOINT}/api/notes/`, {
     method: 'POST',
     headers: {
-      'content-type': 'application/json'
+      'content-type': 'application/json',
+      "Authorization": `Bearer ${config.API_TOKEN}`
     },
     body: JSON.stringify(newNote)
     })
@@ -43,7 +49,12 @@ export default class AddNoteForm extends React.Component {
 
 
   render() {
-  const options = this.context.folders.map(folder => <option key={folder.id} value={folder.id} name={folder}>{folder.name}</option>)
+  const options = this.context.folders.map(folder => 
+    <option key={folder.id} value={folder.id}>
+      {folder.folder_name}
+    </option>
+    )
+
   return (
     <>
       <h2>Create Note</h2>
@@ -60,8 +71,6 @@ export default class AddNoteForm extends React.Component {
           <label htmlFor="folder">Folder</label>
           <select name="folder" id="folder">{ options ? options : null }</select>
         </div>
-          
-        
         <button type="submit" >Add Folder</button>
       </form>
     </>

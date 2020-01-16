@@ -20,9 +20,17 @@ class App extends Component{
   };
 
   componentDidMount() {
+    const apiOptions = {
+      method: 'GET',
+      headers: new Headers({
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${config.API_TOKEN}` 
+      })
+    };
+
     Promise.all([
-        fetch(`${config.API_ENDPOINT}/notes`),
-        fetch(`${config.API_ENDPOINT}/folders`)
+        fetch(`${config.API_ENDPOINT}/api/notes`, apiOptions),
+        fetch(`${config.API_ENDPOINT}/api/folders`, apiOptions)
     ])
         .then(([notesRes, foldersRes]) => {
             if (!notesRes.ok)
@@ -34,6 +42,7 @@ class App extends Component{
         })
         .then(([notes, folders]) => {
             this.setState({notes, folders});
+            console.log(notes)
         })
         .catch(error => {
             console.error({error});
@@ -41,24 +50,23 @@ class App extends Component{
 }
 
   handleAddNote = (note) => {
-    this.props.history.push("/");
     this.setState({
       notes: [...this.state.notes, note]
     });
+    this.props.history.push(`/`);
   }
 
   handleAddFolder = (folderName) => {
-    this.props.history.push("/");
     this.setState({
       folders: [...this.state.folders, folderName]
     });
   }
 
   handleDeleteNote = (noteId) => {
-    this.props.history.push("/");
     this.setState({
       notes: this.state.notes.filter(note => note.id !== noteId)
     });
+    this.props.history.push("/");
 };
 
 renderNavRoutes() {

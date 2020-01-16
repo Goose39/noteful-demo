@@ -11,12 +11,12 @@ export default class SingleNote extends React.Component {
 
     const { notes } = this.context;
     const noteId = this.props.match.params.noteId;
-    const noteWithId = notes.find(note => note.id === noteId);
+    const noteWithId = notes.find(note => note.id.toString() === noteId);
     let note = "" ;
     (noteWithId)? note = <NoteListItem
                           id={noteWithId.id}
-                          name={noteWithId.name}
-                          date={noteWithId.modified}
+                          name={noteWithId.note_name}
+                          modified={noteWithId.modified}
                           deleteNote={this.context.deleteNote}
                         /> : note = null
   return (

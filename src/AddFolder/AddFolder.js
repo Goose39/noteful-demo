@@ -1,6 +1,9 @@
 import React from 'react';
 import './AddFolder.css';
 import ApiContext from '../ApiContext';
+import config from '../config';
+
+const uuidv4 = require('uuid/v4');
 
 export default class AddFolderForm extends React.Component {
   static contextType = ApiContext;
@@ -8,17 +11,18 @@ export default class AddFolderForm extends React.Component {
   addFolderRequest = (e) =>  {
     e.preventDefault()
     const folderName = e.target.folderName.value
-    const randomId = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    const randomId = uuidv4()
 
     const newFolder = {
-      name: folderName,
-      id: randomId,
+      folder_name: folderName,
+      id: randomId
     }
 
-    fetch(`http://localhost:9090/folders/`, {
+    fetch(`${config.API_ENDPOINT}/api/folders/`, {
     method: 'POST',
     headers: {
-      'content-type': 'application/json'
+      'content-type': 'application/json',
+      "Authorization": `Bearer ${config.API_TOKEN}`
     },
     body: JSON.stringify(newFolder),
     })
@@ -34,6 +38,7 @@ export default class AddFolderForm extends React.Component {
       })
       .then(() => {
         this.context.addFolder(newFolder);
+        this.props.history.push("/");
       })
       .catch(error => {
         console.log(error)
